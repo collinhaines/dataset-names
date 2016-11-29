@@ -13,7 +13,7 @@ function Names () {
 
   const file = this.fs.readFileSync('names.csv').toString();
 
-  this.data = this.babyparse.parse(file, { header: true }).data;
+  this.data = this.babyparse.parse(file, { header: true });
 }
 
 /**
@@ -24,13 +24,22 @@ function Names () {
  * @param {String} field -- Header within the CSV.
  */
 Names.prototype.totalField = function (field) {
+  if (!this.data.meta.fields.hasOwnProperty(field)) {
+    console.log('The field \'' + field + '\' does not exist.\n');
+
+    console.log('Please use one of the following:');
+    console.log(this.data.meta.fields.join('\n- '));
+
+    return;
+  }
+
   let total = {
     black: 0,
     white: 0
   };
 
-  for (let i = 0; i < this.data.length; i++) {
-    const item = this.data[i];
+  for (let i = 0; i < this.data.data.length; i++) {
+    const item = this.data.data[i];
 
     if (item[field].toString() === "1") {
       if (item.black.toString() === "1") {
@@ -75,7 +84,7 @@ Names.prototype.indention = function (text, total) {
  * @return {String}
  */
 Names.prototype.total = function (total) {
-  let percentage = ((total / this.data.length) * 100).toString();
+  let percentage = ((total / this.data.data.length) * 100).toString();
 
   if (percentage.length < 5) {
     percentage = percentage.substring(0, percentage.length);

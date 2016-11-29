@@ -1,0 +1,13 @@
+{
+  "name": "dataset-names",
+  "version": "1.0.0",
+  "description": "Statistical program to be utilized regarding a specific dataset.",
+  "author": "Collin Haines",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/collinhaines/dataset-names"
+  },
+  "dependencies": {
+    "babyparse": "^0.4.6"
+  }
+}
